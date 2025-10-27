@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dom Events Interactive Lab</title>
+    <style>
+        /* ---------- RESET -------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 40px 10px;
+        }
+        /*-------------- container -----------*/
+
+        .wrapper {
+            background: rgba(255, 255, 2555, 0.2);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            border-radius: 20px;
+            padding: 30px 40px;
+            width: 95%;
+            max-width: 800px;
+            color: #222;
+            animation: fadeIn 0.8 ease;
+        }
+
+        @keyframes fadeIn{
+            from { opacity: 0; transform: translateY(20px);}
+            to { opacity:1; transform: translateY(0);}
+        }
+
+        h1{
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 2rem;
+            color:#1a237e;
+        }
+        section{
+            margin-bottom: 25px;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: 0.3s;
+
+        }
+
+        section:hover{
+            transform: scale(1.04);
+        }
+       h2 {
+        color: #0d47a1;
+        margin-bottom: 10px;
+        font-size: 1.1rem;
+       }
+
+       button {
+        background: linear-gradient(135deg, #0078ff, #00c6ff);
+        color: white;
+        border:none;
+        border-radius: 10px;
+        padding: 10px 18px;
+        margin:8px;
+        font-size: 15px;
+        cursor: pointer;
+        transition: 0.3s;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+       }
+       
+       button:hover {
+        transform: scale(1.05);
+        background: linear-gradient(135deg, #005ccc, #00a2e8);
+       }
+
+       input{
+        padding: 8px 10px;
+        font-size: 15px;
+        width: 100%;
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        margin-top: 8px;
+        margin-bottom: 12px;
+        outline: none;
+        transition: 0.2s;
+       }
+
+       input:focus {
+      border-color: #0078ff;
+      box-shadow: 0 0 5px #0078ff;
+    }
+
+    #output {
+      margin-top: 15px;
+      background: rgba(255,255,255,0.7);
+      padding: 15px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-align: center;
+      color: #1a237e;
+      border: 2px dashed #90caf9;
+      min-height: 35px;
+      box-shadow: inset 0 3px 10px rgba(0,0,0,0.05);
+    }
+
+    .colorBtn {
+      background: linear-gradient(135deg, #00c853, #64dd17);
+    }
+
+    .colorBtn:hover {
+      background: linear-gradient(135deg, #00a152, #4caf50);
+    }
+
+    </style> 
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Dom Events Interactive Lab</h1>
+
+        <section>
+            <h2>1️⃣ Inline Event (Old Way)</h2>
+            <button onclick="showInline()">Click Inline</button>
+        </section>
+
+        <section>
+            <h2>2️⃣ Property Event Handler</h2>
+            <button id="propBtn">Click Property</button>
+        </section>
+
+        <section>
+            <h2>3️⃣ addEventListener()</h2>
+            <button id="listenerBtn">Click addEventListener</button>
+        </section>
+
+        <section>
+            <h2>4️⃣ Multiple Event Listeners</h2>
+            <button id="multiBtn">Click Multiple Times</button>
+            </section>
+
+        <section>
+            <h2>5️⃣ Using "this" keyword</h2>
+            <button class="colorBtn">Button 1</button>
+            <button class="colorBtn">Button 2</button>
+        </section>
+
+        <section>
+            <h2>6️⃣ Input & Keyboard Events</h2>
+            <input id="textInput" placeholder="Type something...">
+        </section>
+
+        <section>
+            <h2>7️⃣ Mouse Events</h2>
+            <button id="hoverBtn">Hover Over Me</button>
+        </section>
+
+        <div id="output">💡 Event messages will appear here</div>
+    </div>
+
+    <script>
+         const output = document.getElementById("output");
+
+         //1️⃣ Inline Event 
+         function showInline() {
+            output.textContent = "Inline event triggered ✅";
+         }
+
+         //2️⃣ Property Event Handler
+         const propBtn = document.getElementById("propBtn");
+         propBtn.onclick = function() {
+            output.textContent = "Property Event Handler is triggered ✅";
+         };
+
+         //3️⃣ addEventListener
+         const listenerBtn = document.getElementById("listenerBtn");
+         listenerBtn.addEventListener("click", () => {
+          output.textContent = "addEventListener is triggered ✅";
+         });
+         
+         //4️⃣ Multiple Event Listeners
+         const multiBtn = document.getElementById("multiBtn");
+         multiBtn.addEventListener("click", () => {
+            output.textContent = "Listener 1 has responded";
+         });
+         multiBtn.addEventListener("click", () => {
+            alert("Listener 2 has also responded!");
+         });
+
+         // 5️⃣Using "this"
+         const colorBtns =  document.querySelectorAll(".colorBtn");
+         colorBtns.forEach(btn => {
+            btn.addEventListener("click", function() {
+                this.style.backgroundColor = "#ffca28";
+                this.textContent = "Clicked!";
+                output.textContent = "You Clicked (this.textContent)";
+            });
+         });
+
+         //6️⃣ Keyboard & Input Events
+         const textInput = document.getElementById("textInput");
+         textInput.addEventListener("keydown", () => {
+            output.textContent = "Key down ⌨️";
+         });
+         textInput.addEventListener("keyup", () => {
+            output.textContent ="Key up ⬆️";
+         });
+         textInput.addEventListener("change", () => {
+            output.textcontent= "Input changed 📝";
+         });
+
+         //7️⃣ Mouse Events
+
+         const hoverBtn = document.getElementById("hoverBtn");
+         hoverBtn.addEventListener("mouseover", () => {
+            hoverBtn.style.background = "linear-gradient(135deg, #ff4081, #f48fb1)";
+            output.textContent = "Mouse over 🐭";
+         });
+
+         hoverBtn.addEventListener("mouseout", () => {
+            hoverBtn.style.background = "linear-gradient(135deg, #0078ff, #00c6ff)";
+            output.textContent = "Mouse out ❌";
+         });
+
+     </script>
+
+</body>
+</html>
